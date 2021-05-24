@@ -4,9 +4,9 @@ import 'express-async-errors';
 import routes from './routes';
 import cors from 'cors';
 
-import AppError from './errors/AppError';
+import AppError from '../../errors/AppError';
 
-import './database';
+import '../database';
 
 const app = express();
 app.use(cors());
