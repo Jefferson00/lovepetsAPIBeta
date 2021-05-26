@@ -1,25 +1,13 @@
 import { Router } from 'express';
 
-import CreateUserService from '../../../services/CreateUserService';
+import UsersController from '../controllers/UsersController';
 
 const usersRouter = Router();
 
+const usersController = new UsersController();
+
+
 // Rota POST
-usersRouter.post('/', async (request, response) => {
-  const { name, email, password, phone } = request.body;
-
-  const createUser = new CreateUserService();
-
-  const user = await createUser.execute({
-    name,
-    email,
-    password,
-    phone,
-  });
-
-  delete user.password;
-
-  return response.json(user);
-});
+usersRouter.post('/', usersController.create);
 
 export default usersRouter;

@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --inspect --transpile-only --ignore-watch node_modules --no-notify src/shared/infra/http/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --inspect --transpile-only --ignore-watch node_modules --no-notify src/shared/infra/http/server.ts",
     "start": "ts-node src/shared/infra/http/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "jest"
   },
   "devDependencies": {
@@ -39,6 +39,7 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.5.0",
     "typeorm": "^0.2.32"
   }
 }

@@ -4,7 +4,9 @@ import 'express-async-errors';
 import routes from './routes';
 import cors from 'cors';
 
-import AppError from '../../errors/AppError';
+import AppError from "@shared/errors/AppError";
+
+import '@shared/container';
 
 import '../database';
 
