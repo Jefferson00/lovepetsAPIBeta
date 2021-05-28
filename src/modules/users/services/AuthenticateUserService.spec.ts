@@ -41,7 +41,7 @@ describe('AuthenticateUser', () => {
         );
 
 
-        expect(authenticateUser.execute({
+        await expect(authenticateUser.execute({
             email: 'jeffin@jeffin.com',
             password: '123456',
         })).rejects.toBeInstanceOf(AppError);
@@ -65,7 +65,7 @@ describe('AuthenticateUser', () => {
             phone: '61 0000000',
         });
 
-        expect(authenticateUser.execute({
+        await expect(authenticateUser.execute({
             email: 'jeffin@jeffin.com',
             password: '1234567',
         })).rejects.toBeInstanceOf(AppError);

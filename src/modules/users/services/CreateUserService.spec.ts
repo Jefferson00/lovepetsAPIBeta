@@ -37,7 +37,7 @@ describe('CreateUser', () => {
             phone: '61 0000000',
         });
 
-        expect(createUser.execute({
+        await expect(createUser.execute({
             name: 'Jeffin',
             email: 'jeffin@jeffin.com',
             password: '123456',
@@ -59,7 +59,7 @@ describe('CreateUser', () => {
             phone: '61 0000000',
         });
 
-        expect(createUser.execute({
+        await expect(createUser.execute({
             name: 'Jeffin',
             email: 'jeffin1@jeffin.com',
             password: '123456',
