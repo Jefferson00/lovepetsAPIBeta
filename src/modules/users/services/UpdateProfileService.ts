@@ -11,6 +11,7 @@ interface IRequestDTO {
   name: string;
   email: string;
   phone: string;
+  avatar?:string;
   old_password?: string;
   password?: string;
 }
@@ -30,6 +31,7 @@ export default class UpdateProfileService {
     name,
     email,
     phone,
+    avatar,
     password,
     old_password,
   }: IRequestDTO): Promise<User> {
@@ -60,6 +62,10 @@ export default class UpdateProfileService {
       }
 
       user.password = await this.hashProvider.generateHash(password);
+    }
+
+    if (avatar){
+      user.avatar = avatar;
     }
 
     user.name = name;

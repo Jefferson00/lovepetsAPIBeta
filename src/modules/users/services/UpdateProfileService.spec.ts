@@ -38,6 +38,25 @@ describe('UpdateProfile', () => {
     expect(updatedUser.email).toBe('jeffin2@jeffin.com');
   });
 
+  it('should be able to update the profile with avatar', async () => {
+    const user = await fakeUsersRepository.create({
+      name: 'Jeffin',
+      email: 'jeffin@jeffin.com',
+      password: '123456',
+      phone: '61 0000000',
+    });
+
+    const updatedUser = await updateProfile.execute({
+      user_id: user.id,
+      name: 'Jeffin',
+      email: 'jeffin@jeffin.com',
+      phone: '61 0000000',
+      avatar: 'avatar.jpg'
+    });
+
+    expect(updatedUser.avatar).toBe('avatar.jpg');
+  });
+
   it('should NOT be able to update email to an already using email', async () => {
     const user = await fakeUsersRepository.create({
       name: 'Jeffin',
