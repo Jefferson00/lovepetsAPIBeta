@@ -32,3 +32,37 @@
 - Para atualizar a senha, o usuário deve informar a senha atual;
 - Para atualizar a senha, o usuário precisa confirmar a nova senha;
 
+# Listagem de anúncios
+
+**RF**
+
+- O usuário deve poder ver os anúncios publicados num raio de até 100km da sua localidade atual;
+- O usuario poderá alterar o raio de alcance dos anúncios;
+- O usuário poderá filtrar os resultados pela espécie do pet;
+- O usuário poderá filtrar os resultados pelo genêro do pet; 
+- O usuário poderá ver o avatar, o nome, o contato e a cidade do usuário responsavel pelo anúnico;
+- O usuário poderá denunciar o anúncio;
+- O usuário poderá salvar o anúncio como favorito;
+
+**RNF**
+
+**RN**
+- Apenas anúncios válidos serão listados;
+- O anúncio terá um prazo de validade de 60 dias;
+- Para denunciar o usuário deverá estar logado; (?)
+- Para salvar como favorito o usúario deverá estar logado;
+
+
+# Cadastro de anúncios
+
+**RF**
+- O usuário logado deve poder cadastrar um novo anúncio;
+
+**RNF**
+
+**RN**
+- O usuário poderá definir um nome ou caso o pet não possua um nome ele poderá deixar em branco;
+- O anúncio poderá ter até 4 imagens;
+
+
+
