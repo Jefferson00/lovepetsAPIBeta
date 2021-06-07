@@ -19,8 +19,12 @@ import DiskStorageProvider from './providers/StorageProvider/implementations/Dis
 
 import IPetsRepository from '@modules/pets/repositories/IPetsRepository';
 import PetsRepository from '@modules/pets/infra/typeorm/repositories/PetsRepository';
+
 import ILocationsRepository from '@modules/pets/repositories/ILocationsRepository';
 import LocationsRepository from '@modules/pets/infra/typeorm/repositories/LocationsRepository';
+
+import IImagesRepository from '@modules/pets/repositories/IImagesRepository';
+import ImagesRepository from '@modules/pets/infra/typeorm/repositories/ImagesRepository';
 
 container.registerSingleton<IUsersRepository>(
     'UsersRepository',
@@ -35,6 +39,11 @@ container.registerSingleton<IPetsRepository>(
 container.registerSingleton<ILocationsRepository>(
     'LocationsRepository',
     LocationsRepository,
+);
+
+container.registerSingleton<IImagesRepository>(
+    'ImagesRepository',
+    ImagesRepository,
 );
 
 container.registerSingleton<IStorageProvider>(
