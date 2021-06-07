@@ -13,12 +13,28 @@ import EtherealMailProvider from './providers/MailProvider/implementations/Ether
 
 import IMailTemplateProvaider from './providers/MailTemplateProvider/models/IMailTemplateProvider';
 import HandlebarsMailTemplateProvider from './providers/MailTemplateProvider/implementations/HandlebarsMailTemplateProvider';
+
 import IStorageProvider from './providers/StorageProvider/models/IStorageProvider';
 import DiskStorageProvider from './providers/StorageProvider/implementations/DiskStorageProvider';
+
+import IPetsRepository from '@modules/pets/repositories/IPetsRepository';
+import PetsRepository from '@modules/pets/infra/typeorm/repositories/PetsRepository';
+import ILocationsRepository from '@modules/pets/repositories/ILocationsRepository';
+import LocationsRepository from '@modules/pets/infra/typeorm/repositories/LocationsRepository';
 
 container.registerSingleton<IUsersRepository>(
     'UsersRepository',
     UsersRepository,
+);
+
+container.registerSingleton<IPetsRepository>(
+    'PetsRepository',
+    PetsRepository,
+);
+
+container.registerSingleton<ILocationsRepository>(
+    'LocationsRepository',
+    LocationsRepository,
 );
 
 container.registerSingleton<IStorageProvider>(
