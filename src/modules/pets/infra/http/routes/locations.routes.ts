@@ -7,8 +7,7 @@ const locationsRouter = Router();
 
 const locationsController = new LocationsController();
 
-locationsRouter.use(ensureAuthenticated);
-
-locationsRouter.post('/', locationsController.create);
+locationsRouter.post('/', ensureAuthenticated, locationsController.create);
+locationsRouter.get('/', locationsController.index);
 
 export default locationsRouter;
