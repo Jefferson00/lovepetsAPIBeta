@@ -7,8 +7,8 @@ const petsRouter = Router();
 
 const petsController = new PetsController();
 
-petsRouter.use(ensureAuthenticated);
 
-petsRouter.post('/', petsController.create);
+petsRouter.post('/', ensureAuthenticated, petsController.create);
+petsRouter.get('/', petsController.index);
 
 export default petsRouter;

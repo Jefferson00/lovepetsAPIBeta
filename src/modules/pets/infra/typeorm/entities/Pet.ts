@@ -6,12 +6,10 @@ import {
     UpdateDateColumn,
     ManyToOne,
     JoinColumn,
-    OneToOne,
   } from 'typeorm';
 
 
 import User from '@modules/users/infra/typeorm/entities/User';
-import Location from '@modules/pets/infra/typeorm/entities/Location';
 
 @Entity('pets')
 class Pet {
@@ -44,11 +42,16 @@ class Pet {
   description: string;
 
   @Column()
-  location_id: string;
+  location_lat: string;
 
-  @OneToOne(() => Location)
-  @JoinColumn({name: 'location_id'})
-  location: Location;
+  @Column()
+  location_lon: string;
+
+  @Column()
+  city: string;
+
+  @Column()
+  state: string;
 
   @CreateDateColumn()
   created_at: Date;

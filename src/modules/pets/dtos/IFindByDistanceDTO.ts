@@ -1,5 +1,5 @@
 export default interface IFindByDistanceDTO{
-    lat:string;
-    long:string;
+    location_lat:string;
+    location_lon:string;
     distance:string;
 }

@@ -6,5 +6,8 @@ export default interface ICreatePetDTO {
     age:string;
     gender:string;
     description:string;
-    location_id:string;
+    location_lat:string;
+    location_lon:string;
+    city:string;
+    state:string;
 }

@@ -24,12 +24,14 @@ describe('CreatePet', () => {
             gender: 'male',
             is_adopt: false,
             user_id: 'user-id',
-            location_id: 'location-id',
+            location_lat: 'location-id',
+            location_lon: '',
+            city: '',
+            state: ''
         });
 
         expect(pet).toHaveProperty('id');
         expect(pet.user_id).toBe('user-id');
-        expect(pet.location_id).toBe('location-id');
     });
 
     it('should be able to create a new pet without name', async () => {
@@ -41,13 +43,15 @@ describe('CreatePet', () => {
             gender: 'male',
             is_adopt: false,
             user_id: 'user-id',
-            location_id: 'location-id',
+            location_lat: 'location-id',
+            location_lon: '',
+            city: '',
+            state: ''
         });
 
         expect(pet).toHaveProperty('id');
         expect(pet.name).toBe('bixano');
         expect(pet.user_id).toBe('user-id');
-        expect(pet.location_id).toBe('location-id');
 
         const pet2 = await createPet.execute({
             name: null,
@@ -57,13 +61,15 @@ describe('CreatePet', () => {
             gender: 'male',
             is_adopt: false,
             user_id: 'user-id',
-            location_id: 'location-id',
+            location_lat: 'location-id',
+            location_lon: '',
+            city: '',
+            state: ''
         });
 
         expect(pet2).toHaveProperty('id');
         expect(pet2.name).toBe('doguinho');
         expect(pet2.user_id).toBe('user-id');
-        expect(pet2.location_id).toBe('location-id');
 
         const pet3 = await createPet.execute({
             name: null,
@@ -73,13 +79,15 @@ describe('CreatePet', () => {
             gender: 'male',
             is_adopt: false,
             user_id: 'user-id',
-            location_id: 'location-id',
+            location_lat: 'location-id',
+            location_lon: '',
+            city: '',
+            state: ''
         });
 
         expect(pet3).toHaveProperty('id');
         expect(pet3.name).toBe('pet');
         expect(pet3.user_id).toBe('user-id');
-        expect(pet3.location_id).toBe('location-id');
     });
 
     it('should Not be able to create a new pet with is_adopt true', async () => {
@@ -92,7 +100,10 @@ describe('CreatePet', () => {
                 gender: 'male',
                 is_adopt: true,
                 user_id: 'user-id',
-                location_id: 'location-id',
+                location_lat: 'location-id',
+                location_lon: '',
+                city: '',
+                state: ''
             })
         ).rejects.toBeInstanceOf(AppError);
     });

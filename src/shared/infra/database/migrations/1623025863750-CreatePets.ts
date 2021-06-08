@@ -43,8 +43,20 @@ export class CreatePets1623025863750 implements MigrationInterface {
                 type: 'varchar',
               },
               {
-                name: 'location_id',
-                type: 'uuid',
+                name: 'location_lat',
+                type: 'varchar',
+              },
+              {
+                name: 'location_lon',
+                type: 'varchar',
+              },
+              {
+                name: 'city',
+                type: 'varchar',
+              },
+              {
+                name: 'state',
+                type: 'varchar',
               },
               {
                 name: 'created_at',
@@ -65,15 +77,7 @@ export class CreatePets1623025863750 implements MigrationInterface {
                     columnNames: ['user_id'],
                     onDelete: 'CASCADE',
                     onUpdate: 'CASCADE',
-                },
-                {
-                    name: 'PetLocation',
-                    referencedTableName: 'locations',
-                    referencedColumnNames: ['id'],
-                    columnNames: ['location_id'],
-                    onDelete: 'SET NULL',
-                    onUpdate: 'CASCADE',
-                },
+                }
             ],
           }),
         );

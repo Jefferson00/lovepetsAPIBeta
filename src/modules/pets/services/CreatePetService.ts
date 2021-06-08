@@ -11,7 +11,10 @@ interface RequestDTO{
     age:string;
     gender:string;
     description:string;
-    location_id:string;
+    location_lat:string;
+    location_lon:string;
+    city:string;
+    state:string;
 }
 
 @injectable()
@@ -29,7 +32,10 @@ class CreatePetService {
         is_adopt,
         gender, 
         description, 
-        location_id,
+        location_lat,
+        location_lon,
+        city,
+        state,
     }: RequestDTO): Promise<Pet>{
 
         if (!name || name === ''){
@@ -54,7 +60,10 @@ class CreatePetService {
             is_adopt,
             gender, 
             description, 
-            location_id,
+            location_lat,
+            location_lon,
+            city,
+            state,
         });
 
         return pet;
