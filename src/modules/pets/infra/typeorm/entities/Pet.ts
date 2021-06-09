@@ -8,7 +8,8 @@ import {
     JoinColumn,
   } from 'typeorm';
 
-
+  
+import {Exclude, Expose} from 'class-transformer';
 import User from '@modules/users/infra/typeorm/entities/User';
 
 @Entity('pets')
@@ -21,6 +22,7 @@ class Pet {
 
   @ManyToOne(() => User)
   @JoinColumn({name: 'user_id'})
+  @Exclude()
   user: User;
 
   @Column()
@@ -58,6 +60,19 @@ class Pet {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({name: 'user_name'})
+  getUserName():string{
+    return this.user.name;
+  }
+  @Expose({name: 'user_phone'})
+  getUserPhone():string{
+    return this.user.phone;
+  }
+  @Expose({name: 'user_avatar'})
+  getUserAvatar():string{
+    return this.user.getAvatarUrl();
+  }
 }
 
 export default Pet;

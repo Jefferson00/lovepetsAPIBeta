@@ -1,3 +1,4 @@
+import IUsersRepository from "@modules/users/repositories/IUsersRepository";
 import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 import Pet from "../infra/typeorm/entities/Pet";
@@ -22,6 +23,9 @@ class CreatePetService {
     constructor(
         @inject('PetsRepository')
         private petsRepository: IPetsRepository,
+
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository,
     ){}
 
     public async execute({
@@ -37,7 +41,16 @@ class CreatePetService {
         city,
         state,
     }: RequestDTO): Promise<Pet>{
+        const user = await this.usersRepository.findById(user_id);
 
+        if (!user) {
+        throw new AppError('User not found.');
+        }
+
+        if (is_adopt) {
+            throw new AppError('The pet must be available for adoption.');
+        }
+        
         if (!name || name === ''){
                 name = 'pet'
             if (species === 'cat'){
@@ -48,9 +61,6 @@ class CreatePetService {
             }
         }
 
-        if (is_adopt) {
-            throw new AppError('The pet must be available for adoption.');
-        }
 
         const pet = await this.petsRepository.create({
             user_id,

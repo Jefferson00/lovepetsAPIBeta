@@ -52,7 +52,7 @@ class PetsRepository implements IPetsRepository{
 
         let pets: Pet[];
 
-        pets = await this.ormRepository.find();
+        pets = await this.ormRepository.find({relations: ['user']});
 
         return pets;
     }

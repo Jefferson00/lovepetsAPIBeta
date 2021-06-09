@@ -1,9 +1,9 @@
-import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
+
 import Pet from "../infra/typeorm/entities/Pet";
+import IPetsRepository from "../repositories/IPetsRepository";
 import IGeoProvider from "../providers/GeoProvider/models/IGeoProvider";
 
-import IPetsRepository from "../repositories/IPetsRepository";
 
 
 interface RequestDTO{
