@@ -21,6 +21,14 @@ class FakeImagesRepository implements IImagesRepository{
 
         return imagePet;
     }
+
+    public async findByPetId(pet_id:string): Promise<Image[]> {
+        let imageFind: Image[];
+
+        imageFind = this.images.filter(image => image.pet_id === pet_id);
+        
+        return imageFind;
+    }
 }
 
 export default FakeImagesRepository;

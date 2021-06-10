@@ -47,7 +47,9 @@ class PetsRepository implements IPetsRepository{
     public async findByDistance({
         location_lat,
         location_lon,
-         distance
+         distance,
+         species,
+         gender
     }: IFindByDistanceDTO): Promise<Pet[] | undefined>{
 
         let pets: Pet[];

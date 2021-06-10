@@ -10,8 +10,7 @@ const upload = multer(uploadConfig);
 
 const imagesController = new ImagesController();
 
-imagesRouter.use(ensureAuthenticated);
-
-imagesRouter.patch('/', upload.single('image'), imagesController.create);
+imagesRouter.patch('/', upload.single('image'), ensureAuthenticated, imagesController.create);
+imagesRouter.get('/:pet_id', imagesController.index);
 
 export default imagesRouter;

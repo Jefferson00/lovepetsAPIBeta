@@ -6,7 +6,7 @@ import { classToClass } from 'class-transformer';
 
 export default class PetsController {
     public async index(request: Request, response: Response): Promise<Response>{
-        const {location_lat, location_lon, distance} = request.query;
+        const {location_lat, location_lon, distance, species, gender} = request.query;
 
         const findPetsByLocation = container.resolve(FindPetsByLocationService);
 
@@ -14,6 +14,8 @@ export default class PetsController {
             location_lat: String(location_lat), 
             location_lon: String(location_lon), 
             distance: String(distance),
+            species: String(species),
+            gender: String(gender),
         });
 
         return response.json(classToClass(pets));

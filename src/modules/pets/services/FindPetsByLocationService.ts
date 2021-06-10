@@ -10,6 +10,8 @@ interface RequestDTO{
     location_lat:string;
     location_lon:string;
     distance:string;
+    species?:string;
+    gender?:string;
 }
 
 @injectable()
@@ -23,7 +25,7 @@ class FindPetsByLocationService {
     ){}
 
     public async execute({
-        location_lat, location_lon, distance
+        location_lat, location_lon, distance, species, gender
     }: RequestDTO): Promise<Pet[]>{
         
         if (!distance){
@@ -31,8 +33,16 @@ class FindPetsByLocationService {
         }
 
         let petsByLocation = await this.petsRepository.findByDistance({
-            location_lat, location_lon, distance
+            location_lat, location_lon, distance, species, gender
         });
+        
+        if(species !== 'undefined'){
+            petsByLocation = petsByLocation.filter(pet => pet.species === species);
+        }
+
+        if(gender !== 'undefined'){
+            petsByLocation = petsByLocation.filter(pet => pet.gender === gender);
+        }
 
         petsByLocation = petsByLocation.filter(pet => {
             const distanceBetweenLocations = this.geoProvider.getDistance(

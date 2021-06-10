@@ -22,6 +22,12 @@ class ImagesRepository implements IImagesRepository{
 
         return imagePet;
     }
+
+    public async findByPetId(pet_id: string): Promise<Image[]>{
+        const images = this.ormRepository.find({where: {pet_id: pet_id}});
+
+        return images;
+    }
 }
 
 export default ImagesRepository;
