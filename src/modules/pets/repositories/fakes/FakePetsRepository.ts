@@ -70,6 +70,12 @@ class FakePetsRepository implements IPetsRepository{
 
         return pet;
     }
+
+    public async delete(id: string): Promise<void>{
+        const findIndex = this.pets.findIndex(findPet => findPet.id === id);
+
+        this.pets.splice(findIndex, 1);
+    }
 }
 
 export default FakePetsRepository;

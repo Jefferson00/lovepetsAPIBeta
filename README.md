@@ -70,7 +70,7 @@
 **RF**
 - _O usuário deve poder atualizar as informações do anúncio criado por ele_;
 - _O usuário deve poder atualizar as images do anúncio_;
-- O usuário deve poder excluir uma ou mais imagens caso tenha mais de uma referenciada com o anúncio;
+- _O usuário deve poder excluir uma ou mais imagens caso tenha mais de uma referenciada com o anúncio_;
 
 **RNF**
 
@@ -81,10 +81,10 @@
 
 
 **RF**
-- O usuário deve poder excluir o anúncio criado por ele;
+- _O usuário deve poder excluir o anúncio criado por ele_;
 
 **RNF**
 
 **RN**
-- O usuário poderá excluir um anúncio publicado por ele e estando logado;
-- As imagens referentes ao anúncio deverão ser excluidas também;
+- _O usuário poderá excluir um anúncio publicado por ele e estando logado_;
+- _As imagens referentes ao anúncio deverão ser excluidas também_;

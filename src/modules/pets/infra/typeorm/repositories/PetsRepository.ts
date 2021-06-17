@@ -80,7 +80,11 @@ class PetsRepository implements IPetsRepository{
       }
 
     public async save(pet: Pet): Promise<Pet>{
-        return this.ormRepository.save(pet);
+        return await this.ormRepository.save(pet);
+    }
+
+    public async delete(id:string): Promise<void>{
+        await this.ormRepository.delete(id);
     }
 }
 

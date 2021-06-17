@@ -51,5 +51,6 @@ celebrate({
 }),
 ensureAuthenticated, 
 petsController.update);
+petsRouter.delete('/:id', ensureAuthenticated, petsController.delete);
 
 export default petsRouter;

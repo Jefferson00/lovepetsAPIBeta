@@ -8,4 +8,5 @@ export default interface IPetsRepository {
     findByUser (user_id: string): Promise<Pet[] | undefined>;
     findById (id:string): Promise<Pet | undefined>;
     save(data: Pet): Promise<Pet>;
+    delete(id:string): Promise<void>;
 }
