@@ -12,5 +12,6 @@ const imagesController = new ImagesController();
 
 imagesRouter.patch('/', upload.single('image'), ensureAuthenticated, imagesController.create);
 imagesRouter.get('/:pet_id', imagesController.index);
+imagesRouter.patch('/:id', upload.single('image'), ensureAuthenticated, imagesController.update);
 
 export default imagesRouter;

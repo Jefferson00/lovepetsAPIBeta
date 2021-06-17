@@ -1,5 +1,6 @@
 import CreateImageService from "@modules/pets/services/CreateImageService";
 import FindImagesService from "@modules/pets/services/FindImagesService";
+import UpdateImageService from "@modules/pets/services/UpdateImageService";
 import { classToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
@@ -27,6 +28,20 @@ export default class ImagesController {
             pet_id
         });
 
+        return response.json(classToClass(imagePet));
+    }
+    public async update(request: Request, response: Response): Promise<Response>{
+        const {id} = request.params;
+        const { pet_id } = request.body;
+
+        const updateImage = container.resolve(UpdateImageService);
+
+        const imagePet = await updateImage.execute({
+            id,
+            pet_id,
+            image: request.file.filename,
+        });
+        
         return response.json(classToClass(imagePet));
     }
 }

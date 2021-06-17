@@ -28,6 +28,16 @@ class ImagesRepository implements IImagesRepository{
 
         return images;
     }
+
+    public async findById(id: string): Promise<Image>{
+        const image = this.ormRepository.findOne(id);
+
+        return image;
+    }
+
+    public async save(image: Image): Promise<Image>{
+        return this.ormRepository.save(image);
+    }
 }
 
 export default ImagesRepository;

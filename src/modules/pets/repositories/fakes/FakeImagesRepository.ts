@@ -29,6 +29,20 @@ class FakeImagesRepository implements IImagesRepository{
         
         return imageFind;
     }
+
+    public async findById(id: string): Promise<Image | undefined> {
+        const findImage = this.images.find(image => image.id === id);
+    
+        return findImage;
+    }
+
+    public async save(image: Image): Promise<Image> {
+        const findIndex = this.images.findIndex(findImage => findImage.id === image.id);
+    
+        this.images[findIndex] = image;
+    
+        return image;
+    }
 }
 
 export default FakeImagesRepository;
