@@ -68,13 +68,14 @@
 # Atualizar os anúncios
 
 **RF**
-- O usuário deve poder atualizar as informações do anúncio criado por ele;
+- _O usuário deve poder atualizar as informações do anúncio criado por ele_;
 - O usuário deve poder atualizar as images do anúncio;
+- O usuário deve poder excluir uma ou mais imagens caso tenha mais de uma referenciada com o anúncio;
 
 **RNF**
 
 **RN**
-- O usuário poderá atualizar um anúncio publicado por ele e estando logado;
+- _O usuário poderá atualizar um anúncio publicado por ele e estando logado_;
 
 # Excluir os anúncios
 

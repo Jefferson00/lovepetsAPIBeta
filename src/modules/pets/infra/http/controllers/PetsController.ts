@@ -3,6 +3,7 @@ import FindPetsByLocationService from "@modules/pets/services/FindPetsByLocation
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { classToClass } from 'class-transformer';
+import UpdatePetService from "@modules/pets/services/UpdatePetService";
 
 export default class PetsController {
     public async index(request: Request, response: Response): Promise<Response>{
@@ -55,5 +56,42 @@ export default class PetsController {
         });
 
         return response.json(pet);
+    }
+
+    public async update(request: Request, response: Response): Promise<Response>{
+        const user_id = request.user.id;
+        const {id} = request.params;
+        const {
+            name, 
+            species, 
+            age, 
+            is_adopt,
+            gender, 
+            description, 
+            location_lat,
+            location_lon,
+            city,
+            state
+        } = request.body;
+
+        const updatePet = container.resolve(UpdatePetService);
+
+        const pet = await updatePet.execute({
+            user_id,
+            id: String(id),
+            name, 
+            species, 
+            age, 
+            is_adopt,
+            gender, 
+            description, 
+            location_lat,
+            location_lon,
+            city,
+            state
+        });
+
+        return response.json(pet);
+
     }
 }

@@ -56,6 +56,20 @@ class FakePetsRepository implements IPetsRepository{
 
         return pets;
     }
+
+    public async findById(id:string): Promise<Pet | undefined>{
+        let pet = this.pets.find(pet => pet.id === id);
+
+        return pet;
+    }
+
+    public async save(pet:Pet): Promise<Pet>{
+        const findIndex = this.pets.findIndex(findPet => findPet.id === pet.id);
+
+        this.pets[findIndex] = pet;
+
+        return pet;
+    }
 }
 
 export default FakePetsRepository;

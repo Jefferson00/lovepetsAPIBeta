@@ -72,6 +72,16 @@ class PetsRepository implements IPetsRepository{
 
         return pets;
     }
+
+    public async findById(id: string): Promise<Pet | undefined> {
+        const pet = await this.ormRepository.findOne(id);
+    
+        return pet;
+      }
+
+    public async save(pet: Pet): Promise<Pet>{
+        return this.ormRepository.save(pet);
+    }
 }
 
 export default PetsRepository;
