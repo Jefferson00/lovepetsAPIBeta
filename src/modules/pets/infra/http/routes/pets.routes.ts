@@ -3,11 +3,13 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import PetsController from '../controllers/PetsController';
+import PetsUserController from '../controllers/PetsUserController';
 
 
 const petsRouter = Router();
 
 const petsController = new PetsController();
+const petsUserController = new PetsUserController();
 
 
 petsRouter.post('/',
@@ -31,5 +33,6 @@ petsRouter.post('/',
 
 
 petsRouter.get('/', petsController.index);
+petsRouter.get('/me', ensureAuthenticated, petsUserController.index);
 
 export default petsRouter;

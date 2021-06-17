@@ -4,4 +4,6 @@ export default interface IFindByDistanceDTO{
     distance:string;
     species?:string;
     gender?:string;
+    limit?:number;
+    skip?:number;
 }

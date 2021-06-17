@@ -12,6 +12,8 @@ interface RequestDTO{
     distance:string;
     species?:string;
     gender?:string;
+    limit?:number;
+    skip?:number;
 }
 
 @injectable()
@@ -25,7 +27,7 @@ class FindPetsByLocationService {
     ){}
 
     public async execute({
-        location_lat, location_lon, distance, species, gender
+        location_lat, location_lon, distance, species, gender, limit, skip
     }: RequestDTO): Promise<Pet[]>{
         
         if (!distance){
@@ -33,7 +35,7 @@ class FindPetsByLocationService {
         }
 
         let petsByLocation = await this.petsRepository.findByDistance({
-            location_lat, location_lon, distance, species, gender
+            location_lat, location_lon, distance, species, gender, limit, skip
         });
         
         if(species !== 'undefined'){

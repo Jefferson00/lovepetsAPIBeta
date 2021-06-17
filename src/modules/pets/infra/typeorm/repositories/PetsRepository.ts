@@ -49,12 +49,26 @@ class PetsRepository implements IPetsRepository{
         location_lon,
          distance,
          species,
-         gender
+         gender,
+         limit,
+         skip
     }: IFindByDistanceDTO): Promise<Pet[] | undefined>{
 
         let pets: Pet[];
 
-        pets = await this.ormRepository.find({relations: ['user']});
+        pets = await this.ormRepository.find({relations: ['user'], take:limit, skip: skip, order:{created_at: 'DESC'}});
+
+        return pets;
+    }
+
+    public async findByUser(user_id:string): Promise<Pet[] | undefined>{
+        let pets: Pet[];
+
+        pets = await this.ormRepository.find({
+            relations: ['user'],
+            where:{user_id},
+            order:{created_at: 'DESC'}
+        });
 
         return pets;
     }

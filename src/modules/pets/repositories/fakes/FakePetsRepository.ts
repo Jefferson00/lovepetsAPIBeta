@@ -49,6 +49,12 @@ class FakePetsRepository implements IPetsRepository{
         let { pets } = this;
 
         return pets;
+    };
+
+    public async findByUser(user_id:string): Promise<Pet[] | undefined>{
+        let pets = this.pets.filter(pet => pet.user_id === user_id);
+
+        return pets;
     }
 }
 
