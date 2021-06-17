@@ -6,4 +6,5 @@ export default interface IImagesRepository{
     findByPetId (pet_id: string): Promise<Image[]>;
     findById (id: string): Promise<Image>;
     save(data: Image): Promise<Image>;
+    delete(id: string): Promise<void>;
 }

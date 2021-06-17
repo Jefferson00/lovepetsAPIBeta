@@ -43,6 +43,12 @@ class FakeImagesRepository implements IImagesRepository{
     
         return image;
     }
+
+    public async delete(id: string): Promise<void>{
+        const findIndex = this.images.findIndex(findImage => findImage.id === id);
+
+        this.images.splice(findIndex, 1);
+    }
 }
 
 export default FakeImagesRepository;

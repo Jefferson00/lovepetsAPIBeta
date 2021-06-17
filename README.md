@@ -69,7 +69,7 @@
 
 **RF**
 - _O usuário deve poder atualizar as informações do anúncio criado por ele_;
-- O usuário deve poder atualizar as images do anúncio;
+- _O usuário deve poder atualizar as images do anúncio_;
 - O usuário deve poder excluir uma ou mais imagens caso tenha mais de uma referenciada com o anúncio;
 
 **RNF**

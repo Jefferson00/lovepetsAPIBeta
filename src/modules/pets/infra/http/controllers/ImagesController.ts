@@ -1,4 +1,5 @@
 import CreateImageService from "@modules/pets/services/CreateImageService";
+import DeleteImageService from "@modules/pets/services/DeleteImageService";
 import FindImagesService from "@modules/pets/services/FindImagesService";
 import UpdateImageService from "@modules/pets/services/UpdateImageService";
 import { classToClass } from "class-transformer";
@@ -43,5 +44,15 @@ export default class ImagesController {
         });
         
         return response.json(classToClass(imagePet));
+    }
+    public async delete(request: Request, response: Response): Promise<Response>{
+        const {id} = request.params;
+        const { pet_id } = request.body;
+
+        const deleteImage = container.resolve(DeleteImageService);
+
+        await deleteImage.execute({id, pet_id});
+
+        return response.send();
     }
 }

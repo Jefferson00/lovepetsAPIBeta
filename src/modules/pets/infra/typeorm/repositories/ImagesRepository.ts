@@ -24,19 +24,23 @@ class ImagesRepository implements IImagesRepository{
     }
 
     public async findByPetId(pet_id: string): Promise<Image[]>{
-        const images = this.ormRepository.find({where: {pet_id: pet_id}});
+        const images = await this.ormRepository.find({where: {pet_id: pet_id}});
 
         return images;
     }
 
     public async findById(id: string): Promise<Image>{
-        const image = this.ormRepository.findOne(id);
+        const image = await this.ormRepository.findOne(id);
 
         return image;
     }
 
     public async save(image: Image): Promise<Image>{
-        return this.ormRepository.save(image);
+        return await this.ormRepository.save(image);
+    }
+
+    public async delete(id:string): Promise<void>{
+        await this.ormRepository.delete(id);
     }
 }
 
