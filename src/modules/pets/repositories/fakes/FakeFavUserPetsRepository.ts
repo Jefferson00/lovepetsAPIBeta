@@ -30,6 +30,12 @@ class FakeFavUserPetsRepository implements IFavUserPetsRepository{
         return favs;
     }
 
+    public async findByUserAndPet(user_id:string, pet_id:string): Promise<FavUserPets>{
+        let fav = this.favs.find(fav => (fav.user_id === user_id && fav.pet_id === pet_id));
+
+        return fav;
+    }
+
     public async findById(id:string): Promise<FavUserPets | undefined>{
         let fav = this.favs.find(fav => fav.id === id);
 

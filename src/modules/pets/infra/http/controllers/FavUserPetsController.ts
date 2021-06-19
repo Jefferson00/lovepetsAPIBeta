@@ -3,6 +3,7 @@ import { container } from "tsyringe";
 import { classToClass } from 'class-transformer';
 import CreateFavUserPetsService from "@modules/pets/services/CreateFavUserPetsService";
 import FindFavUserPetsService from "@modules/pets/services/FindFavUserPetsService";
+import DeleteFavUserPetsService from "@modules/pets/services/DeleteFavUserPetsService";
 
 export default class FavUserPetsController {
     public async index(request: Request, response: Response): Promise<Response>{
@@ -29,5 +30,15 @@ export default class FavUserPetsController {
         );
 
         return response.json(fav);
+    }
+
+    public async delete(request: Request, response: Response): Promise<Response>{
+        const {id} = request.params;
+
+        const deleteFav= container.resolve(DeleteFavUserPetsService);
+
+        await deleteFav.execute(id);
+
+        return response.send();
     }
 }

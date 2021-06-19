@@ -9,11 +9,10 @@ const favsRoutes = Router();
 
 const favsController = new FavUserPetsController();
 
+favsRoutes.use(ensureAuthenticated);
 
-favsRoutes.post('/',
-    ensureAuthenticated, 
-    favsController.create
-);
-favsRoutes.get('/', ensureAuthenticated, favsController.index);
+favsRoutes.post('/', favsController.create);
+favsRoutes.get('/', favsController.index);
+favsRoutes.delete('/:id', favsController.delete);
 
 export default favsRoutes;

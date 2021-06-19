@@ -33,6 +33,17 @@ class FavUserPetsRepository implements IFavUserPetsRepository{
         return favs;
     }
 
+    public async findByUserAndPet(user_id:string, pet_id:string): Promise<FavUserPets>{
+        let fav: FavUserPets;
+
+        fav = await this.ormRepository.findOne({
+            relations: ['user', 'pet', 'pet.user'],
+            where:{user_id, pet_id},
+        });
+
+        return fav;
+    }
+
     public async findById(id: string): Promise<FavUserPets | undefined> {
         const fav = await this.ormRepository.findOne(id);
     

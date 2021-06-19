@@ -32,6 +32,12 @@ class CreateFavUserPetsService {
             throw new AppError('Pet not found.');
         }
 
+        const favExist = await this.favUserPetsRepository.findByUserAndPet(user_id, pet_id);
+
+        if(favExist){
+            throw new AppError('Fav already exists');
+        }
+
         const fav = await this.favUserPetsRepository.create(user_id, pet_id);
       
 
