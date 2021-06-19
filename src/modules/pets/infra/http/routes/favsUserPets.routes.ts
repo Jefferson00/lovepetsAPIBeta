@@ -14,5 +14,6 @@ favsRoutes.post('/',
     ensureAuthenticated, 
     favsController.create
 );
+favsRoutes.get('/', ensureAuthenticated, favsController.index);
 
 export default favsRoutes;

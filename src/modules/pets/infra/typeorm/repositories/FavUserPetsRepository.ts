@@ -25,7 +25,7 @@ class FavUserPetsRepository implements IFavUserPetsRepository{
         let favs: FavUserPets[];
 
         favs = await this.ormRepository.find({
-            relations: ['user', 'pets'],
+            relations: ['user', 'pet', 'pet.user'],
             where:{user_id},
             order:{created_at: 'DESC'}
         });

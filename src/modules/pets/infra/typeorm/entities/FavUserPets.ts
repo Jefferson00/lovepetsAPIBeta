@@ -31,25 +31,13 @@ class FavUserPets {
 
   @ManyToOne(() => Pet)
   @JoinColumn({name: 'pet_id'})
+  pet: Pet;
  
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  @Expose({name: 'user_name'})
-  getUserName():string{
-    return this.user.name;
-  }
-  @Expose({name: 'user_phone'})
-  getUserPhone():string{
-    return this.user.phone;
-  }
-  @Expose({name: 'user_avatar'})
-  getUserAvatar():string{
-    return this.user.getAvatarUrl();
-  }
 }
 
 export default FavUserPets;
