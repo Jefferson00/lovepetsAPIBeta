@@ -23,6 +23,8 @@ import PetsRepository from '@modules/pets/infra/typeorm/repositories/PetsReposit
 
 import IImagesRepository from '@modules/pets/repositories/IImagesRepository';
 import ImagesRepository from '@modules/pets/infra/typeorm/repositories/ImagesRepository';
+import IFavUserPetsRepository from '@modules/pets/repositories/IFavUserPetsRepository';
+import FavUserPetsRepository from '@modules/pets/infra/typeorm/repositories/FavUserPetsRepository';
 
 container.registerSingleton<IUsersRepository>(
     'UsersRepository',
@@ -32,6 +34,11 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IPetsRepository>(
     'PetsRepository',
     PetsRepository,
+);
+
+container.registerSingleton<IFavUserPetsRepository>(
+    'FavUserPetsRepository',
+    FavUserPetsRepository,
 );
 
 container.registerSingleton<IImagesRepository>(
