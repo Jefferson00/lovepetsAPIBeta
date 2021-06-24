@@ -56,7 +56,7 @@ class FindPetsByLocationService {
             }
         });
 
-        return petsByLocation;
+        return petsByLocation.slice((skip - 1) * limit, skip * limit);
     }
 }
 

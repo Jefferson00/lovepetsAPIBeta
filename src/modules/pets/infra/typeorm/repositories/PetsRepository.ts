@@ -56,7 +56,12 @@ class PetsRepository implements IPetsRepository{
 
         let pets: Pet[];
 
-        pets = await this.ormRepository.find({relations: ['user'], take:limit, skip: skip, order:{created_at: 'DESC'}});
+        const result = await this.ormRepository.find({
+            relations: ['user'], 
+            order:{created_at: 'DESC'}
+        });
+
+        pets = result;
 
         return pets;
     }
