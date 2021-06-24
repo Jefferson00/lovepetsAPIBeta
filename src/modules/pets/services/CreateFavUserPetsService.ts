@@ -1,4 +1,5 @@
 import IUsersRepository from "@modules/users/repositories/IUsersRepository";
+import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
 import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 import FavUserPets from "../infra/typeorm/entities/FavUserPets";
@@ -17,6 +18,9 @@ class CreateFavUserPetsService {
 
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ){}
 
     public async execute(user_id:string, pet_id:string): Promise<FavUserPets>{
@@ -40,6 +44,7 @@ class CreateFavUserPetsService {
 
         const fav = await this.favUserPetsRepository.create(user_id, pet_id);
       
+        await this.cacheProvider.invalidate(`user-favs-pets-list:${user_id}`);
 
         return fav;
     }

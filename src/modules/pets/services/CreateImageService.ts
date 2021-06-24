@@ -1,4 +1,5 @@
 
+import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
 import IStorageProvider from "@shared/container/providers/StorageProvider/models/IStorageProvider";
 import { inject, injectable } from "tsyringe";
 import Image from "../infra/typeorm/entities/Image";
@@ -17,6 +18,9 @@ class CreateImageService {
 
         @inject('StorageProvider')
         private storageProvider: IStorageProvider,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider,
     ){}
 
     public async execute({
@@ -27,6 +31,8 @@ class CreateImageService {
         const imagePet = await this.imagesRepository.create({
             image: filename, pet_id
         });
+
+        await this.cacheProvider.invalidate(`pet-images-list:${pet_id}`);
 
         return imagePet;
     }

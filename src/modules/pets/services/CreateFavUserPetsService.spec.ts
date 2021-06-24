@@ -1,4 +1,5 @@
 import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
+import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 import AppError from "@shared/errors/AppError";
 import FakeFavUserPetsRepository from "../repositories/fakes/FakeFavUserPetsRepository";
 import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
@@ -8,16 +9,21 @@ import CreateFavUserPetsService from "./CreateFavUserPetsService";
 let fakePetsRepository: FakePetsRepository;
 let fakeUsersRepository: FakeUsersRepository;
 let fakeFavUserPetsRepository: FakeFavUserPetsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createFavUserPet: CreateFavUserPetsService;
 
 describe('CreateFavUserPets', () => {
     beforeEach(() => {
         fakePetsRepository = new FakePetsRepository();
         fakeUsersRepository = new FakeUsersRepository();
+        fakeCacheProvider = new FakeCacheProvider();
         fakeFavUserPetsRepository = new FakeFavUserPetsRepository();
 
         createFavUserPet = new CreateFavUserPetsService(
-            fakeFavUserPetsRepository, fakePetsRepository, fakeUsersRepository, 
+            fakeFavUserPetsRepository, 
+            fakePetsRepository, 
+            fakeUsersRepository, 
+            fakeCacheProvider,
         );
     });
 
@@ -85,6 +91,38 @@ describe('CreateFavUserPets', () => {
             createFavUserPet.execute(
                 user.id,
                 'pet.id',
+            )
+        ).rejects.toBeInstanceOf(AppError);
+    });
+
+    it('should Not be able to create a new fav already exists', async () => {
+        const user = await fakeUsersRepository.create({
+            name: 'Jeffin',
+            email: 'jeffin@jeffin.com',
+            password: '123456',
+            phone: '61 0000000',
+        });
+        const pet = await fakePetsRepository.create({
+            name: 'Bixano',
+            species: 'cat',
+            age: '1 ano',
+            description: 'description',
+            gender: 'male',
+            is_adopt: false,
+            user_id: 'user_id',
+            location_lat: 'location-id',
+            location_lon: '',
+            city: '',
+            state: ''
+        });
+        await createFavUserPet.execute(
+            user.id,
+            pet.id,
+        );
+        await expect(
+            createFavUserPet.execute(
+                user.id,
+                pet.id,
             )
         ).rejects.toBeInstanceOf(AppError);
     });

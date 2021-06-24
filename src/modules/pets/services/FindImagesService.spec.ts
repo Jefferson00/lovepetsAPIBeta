@@ -1,4 +1,5 @@
 import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
+import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 import AppError from "@shared/errors/AppError";
 import FakeImagesRepository from "../repositories/fakes/FakeImagesRepository";
 import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
@@ -7,15 +8,16 @@ import FindImagesService from "./FindImagesService";
 
 
 let fakeImagesRepository: FakeImagesRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let findImages: FindImagesService;
 
 describe('FindImages', () => {
     beforeEach(() => {
         fakeImagesRepository = new FakeImagesRepository();
-   
+        fakeCacheProvider = new FakeCacheProvider();
 
         findImages = new FindImagesService(
-            fakeImagesRepository
+            fakeImagesRepository, fakeCacheProvider
         );
     });
 

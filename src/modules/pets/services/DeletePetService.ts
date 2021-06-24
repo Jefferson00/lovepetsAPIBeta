@@ -45,11 +45,8 @@ class DeletePetService {
         const images = await this.imagesRepository.findByPetId(pet.id);
 
         images.map(async (deleteImage) => {
-            console.log(': '+deleteImage.id);
             await this.storageProvider.deleteFile(deleteImage.image);
         });
-
-        console.log('out ');
 
         await this.petsRepository.delete(id);
     }

@@ -20,8 +20,16 @@ describe('DeletePet', () => {
             'user_id',
             'pet_id',
         );
+        const fav2 = await fakeFavUserPetsRepository.create(
+            'user_id',
+            'pet_id_2',
+        );
+
+        await deleteFav.execute(fav.id);
+
+        const favs = await fakeFavUserPetsRepository.findByUser('user_id');
          
-        await expect(await deleteFav.execute(fav.id)).resolves.toBe(undefined);
+        expect(favs).toEqual([fav2]);
     });
 
 

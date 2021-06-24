@@ -9,7 +9,6 @@ import { container } from "tsyringe";
 export default class ImagesController {
     public async index(request: Request, response: Response): Promise<Response>{
         const { pet_id } = request.params;
-        console.log(pet_id)
 
         const findImage = container.resolve(FindImagesService);
 

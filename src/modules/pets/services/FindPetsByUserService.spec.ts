@@ -5,10 +5,12 @@ import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepo
 import FindPetsByLocationService from "./FindPetsByLocationService";
 import CreatePetService from "./CreatePetService";
 import FindPetsByUserService from './FindPetsByUserService';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 
 
 let fakePetsRepository: FakePetsRepository;
 let fakeUsersRepository: FakeUsersRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let findPetsByUser: FindPetsByUserService;
 let createPetsRepository: CreatePetService;
 
@@ -16,13 +18,14 @@ describe('FindPetByUser', () => {
     beforeEach(() => {
         fakePetsRepository = new FakePetsRepository();
         fakeUsersRepository = new FakeUsersRepository();
+        fakeCacheProvider = new FakeCacheProvider();
 
         createPetsRepository = new CreatePetService(
-            fakePetsRepository, fakeUsersRepository
+            fakePetsRepository, fakeUsersRepository, fakeCacheProvider
         );
 
         findPetsByUser = new FindPetsByUserService(
-            fakePetsRepository
+            fakePetsRepository, fakeCacheProvider
         );
     });
 
