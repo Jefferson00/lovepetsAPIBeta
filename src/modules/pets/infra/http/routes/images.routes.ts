@@ -6,7 +6,7 @@ import ImagesController from '../controllers/ImagesController';
 
 const imagesRouter = Router();
 
-const upload = multer(uploadConfig);
+const upload = multer(uploadConfig.multer);
 
 const imagesController = new ImagesController();
 

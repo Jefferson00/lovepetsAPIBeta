@@ -5,6 +5,7 @@ import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequestDTO {
   user_id: string;
@@ -19,7 +20,10 @@ export default class UpdateUserAvatarService {
 
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
-  ) {}
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
+  ) { }
 
   public async execute({
     user_id,
@@ -38,6 +42,9 @@ export default class UpdateUserAvatarService {
     const filename = await this.storageProvider.saveFile(avatarFilename);
 
     user.avatar = filename;
+
+    await this.cacheProvider.invalidatePrefix(`pets-list`);
+    await this.cacheProvider.invalidatePrefix(`user-favs-pets-list`);
 
     await this.usersRepository.save(user);
 

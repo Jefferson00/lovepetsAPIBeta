@@ -1,12 +1,13 @@
 import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
+import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 import AppError from "@shared/errors/AppError";
 import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
-import CreatePetService from "./CreatePetService";
 import UpdatePetService from "./UpdatePetService";
 
 
 let fakePetsRepository: FakePetsRepository;
 let fakeUsersRepository: FakeUsersRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let updatePet: UpdatePetService;
 
 describe('UpdatePet', () => {
@@ -15,7 +16,7 @@ describe('UpdatePet', () => {
         fakeUsersRepository = new FakeUsersRepository();
 
         updatePet = new UpdatePetService(
-            fakePetsRepository, fakeUsersRepository
+            fakePetsRepository, fakeUsersRepository, fakeCacheProvider,
         )
     });
 
@@ -104,7 +105,7 @@ describe('UpdatePet', () => {
     it('should Not be able to update a pet without a valid user_id', async () => {
         await expect(
             updatePet.execute({
-                id:'id',
+                id: 'id',
                 name: 'Bixano',
                 species: 'cat',
                 age: '1 ano',
@@ -150,7 +151,7 @@ describe('UpdatePet', () => {
         });
         await expect(
             updatePet.execute({
-                id:pet.id,
+                id: pet.id,
                 name: 'Bixano',
                 species: 'cat',
                 age: '1 ano',
@@ -175,7 +176,7 @@ describe('UpdatePet', () => {
         });
         await expect(
             updatePet.execute({
-                id:'non-existing-id',
+                id: 'non-existing-id',
                 name: 'Bixano',
                 species: 'cat',
                 age: '1 ano',

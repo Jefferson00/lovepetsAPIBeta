@@ -1,9 +1,11 @@
+import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 import AppError from "@shared/errors/AppError";
 import FakeFavUserPetsRepository from "../repositories/fakes/FakeFavUserPetsRepository";
 import DeleteFavUserPetsService from "./DeleteFavUserPetsService";
 
 
 let fakeFavUserPetsRepository: FakeFavUserPetsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let deleteFav: DeleteFavUserPetsService;
 
 describe('DeletePet', () => {
@@ -11,7 +13,7 @@ describe('DeletePet', () => {
         fakeFavUserPetsRepository = new FakeFavUserPetsRepository();
 
         deleteFav = new DeleteFavUserPetsService(
-            fakeFavUserPetsRepository
+            fakeFavUserPetsRepository, fakeCacheProvider
         );
     });
 
@@ -28,7 +30,7 @@ describe('DeletePet', () => {
         await deleteFav.execute(fav.id);
 
         const favs = await fakeFavUserPetsRepository.findByUser('user_id');
-         
+
         expect(favs).toEqual([fav2]);
     });
 

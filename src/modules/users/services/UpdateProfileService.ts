@@ -5,13 +5,14 @@ import AppError from '@shared/errors/AppError';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequestDTO {
   user_id: string;
   name: string;
   email: string;
   phone: string;
-  avatar?:string;
+  avatar?: string;
   old_password?: string;
   password?: string;
 }
@@ -24,7 +25,10 @@ export default class UpdateProfileService {
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
-  ) {}
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
+  ) { }
 
   public async execute({
     user_id,
@@ -64,13 +68,16 @@ export default class UpdateProfileService {
       user.password = await this.hashProvider.generateHash(password);
     }
 
-    if (avatar){
+    if (avatar) {
       user.avatar = avatar;
     }
 
     user.name = name;
     user.email = email;
     user.phone = phone;
+
+    await this.cacheProvider.invalidatePrefix(`pets-list`);
+    await this.cacheProvider.invalidatePrefix(`user-favs-pets-list`);
 
     return this.usersRepository.save(user);
   }

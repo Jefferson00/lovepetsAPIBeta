@@ -1,4 +1,5 @@
 import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
+import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 import FakeStorageProvider from "@shared/container/providers/StorageProvider/fakes/FakeStorageProvider";
 import AppError from "@shared/errors/AppError";
 import FakeImagesRepository from "../repositories/fakes/FakeImagesRepository";
@@ -11,6 +12,7 @@ let fakePetsRepository: FakePetsRepository;
 let fakeUsersRepository: FakeUsersRepository;
 let fakeImagesRepository: FakeImagesRepository;
 let fakeStorageProvider: FakeStorageProvider;
+let fakeCacheProvider: FakeCacheProvider;
 let deletePet: DeletePetService;
 
 describe('DeletePet', () => {
@@ -21,7 +23,11 @@ describe('DeletePet', () => {
         fakeStorageProvider = new FakeStorageProvider();
 
         deletePet = new DeletePetService(
-            fakePetsRepository,fakeUsersRepository, fakeImagesRepository, fakeStorageProvider
+            fakePetsRepository,
+            fakeUsersRepository,
+            fakeImagesRepository,
+            fakeStorageProvider,
+            fakeCacheProvider,
         );
     });
 
@@ -71,7 +77,7 @@ describe('DeletePet', () => {
         const pets = await fakePetsRepository.findByUser(user.id);
 
         expect(pets).toEqual([pet]);
-    
+
     });
 
     it('should NOT be able to delete an Pet with non-existing user', async () => {
