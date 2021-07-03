@@ -27,30 +27,31 @@ petsRouter.post('/',
             state: Joi.string().required(),
         }
     }),
-    ensureAuthenticated, 
+    ensureAuthenticated,
     petsController.create
 );
 
 
 petsRouter.get('/', petsController.index);
+petsRouter.get('/:id', petsController.find);
 petsRouter.get('/me', ensureAuthenticated, petsUserController.index);
 petsRouter.put('/:id',
-celebrate({
-    [Segments.BODY]: {
-        name: Joi.string().allow(''),
-        species: Joi.string().required(),
-        age: Joi.string().required(),
-        description: Joi.string().required(),
-        gender: Joi.string().required(),
-        is_adopt: Joi.boolean().required(),
-        location_lat: Joi.string().required(),
-        location_lon: Joi.string().required(),
-        city: Joi.string().required(),
-        state: Joi.string().required(),
-    }
-}),
-ensureAuthenticated, 
-petsController.update);
+    celebrate({
+        [Segments.BODY]: {
+            name: Joi.string().allow(''),
+            species: Joi.string().required(),
+            age: Joi.string().required(),
+            description: Joi.string().required(),
+            gender: Joi.string().required(),
+            is_adopt: Joi.boolean().required(),
+            location_lat: Joi.string().required(),
+            location_lon: Joi.string().required(),
+            city: Joi.string().required(),
+            state: Joi.string().required(),
+        }
+    }),
+    ensureAuthenticated,
+    petsController.update);
 petsRouter.delete('/:id', ensureAuthenticated, petsController.delete);
 
 export default petsRouter;

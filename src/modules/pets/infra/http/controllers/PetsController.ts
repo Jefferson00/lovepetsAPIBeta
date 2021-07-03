@@ -5,16 +5,17 @@ import { container } from "tsyringe";
 import { classToClass } from 'class-transformer';
 import UpdatePetService from "@modules/pets/services/UpdatePetService";
 import DeletePetService from "@modules/pets/services/DeletePetService";
+import FindPetsByIdService from "@modules/pets/services/FindPetsByIdService";
 
 export default class PetsController {
-    public async index(request: Request, response: Response): Promise<Response>{
-        const {location_lat, location_lon, distance, species, gender, limit, skip} = request.query;
+    public async index(request: Request, response: Response): Promise<Response> {
+        const { location_lat, location_lon, distance, species, gender, limit, skip } = request.query;
 
         const findPetsByLocation = container.resolve(FindPetsByLocationService);
 
         const pets = await findPetsByLocation.execute({
-            location_lat: String(location_lat), 
-            location_lon: String(location_lon), 
+            location_lat: String(location_lat),
+            location_lon: String(location_lon),
             distance: String(distance),
             species: String(species),
             gender: String(gender),
@@ -25,15 +26,25 @@ export default class PetsController {
         return response.json(classToClass(pets));
     }
 
-    public async create(request: Request, response: Response): Promise<Response>{
+    public async find(request: Request, response: Response): Promise<Response> {
+        const { id } = request.params;
+
+        const findPet = container.resolve(FindPetsByIdService);
+
+        const pet = await findPet.execute(id);
+
+        return response.json(classToClass(pet));
+    }
+
+    public async create(request: Request, response: Response): Promise<Response> {
         const user_id = request.user.id;
         const {
-            name, 
-            species, 
-            age, 
+            name,
+            species,
+            age,
             is_adopt,
-            gender, 
-            description, 
+            gender,
+            description,
             location_lat,
             location_lon,
             city,
@@ -44,12 +55,12 @@ export default class PetsController {
 
         const pet = await createPet.execute({
             user_id,
-            name, 
-            species, 
-            age, 
+            name,
+            species,
+            age,
             is_adopt,
-            gender, 
-            description, 
+            gender,
+            description,
             location_lat,
             location_lon,
             city,
@@ -59,16 +70,16 @@ export default class PetsController {
         return response.json(pet);
     }
 
-    public async update(request: Request, response: Response): Promise<Response>{
+    public async update(request: Request, response: Response): Promise<Response> {
         const user_id = request.user.id;
-        const {id} = request.params;
+        const { id } = request.params;
         const {
-            name, 
-            species, 
-            age, 
+            name,
+            species,
+            age,
             is_adopt,
-            gender, 
-            description, 
+            gender,
+            description,
             location_lat,
             location_lon,
             city,
@@ -80,12 +91,12 @@ export default class PetsController {
         const pet = await updatePet.execute({
             user_id,
             id: String(id),
-            name, 
-            species, 
-            age, 
+            name,
+            species,
+            age,
             is_adopt,
-            gender, 
-            description, 
+            gender,
+            description,
             location_lat,
             location_lon,
             city,
@@ -96,13 +107,13 @@ export default class PetsController {
 
     }
 
-    public async delete(request: Request, response: Response): Promise<Response>{
-        const {id} = request.params;
+    public async delete(request: Request, response: Response): Promise<Response> {
+        const { id } = request.params;
         const user_id = request.user.id;
 
         const deletePet = container.resolve(DeletePetService);
 
-        await deletePet.execute({id, user_id});
+        await deletePet.execute({ id, user_id });
 
         return response.send();
     }
