@@ -25,4 +25,6 @@ usersRouter.patch(
   userAvatarController.update,
 );
 
+usersRouter.delete('/', ensureAuthenticated, usersController.delete);
+
 export default usersRouter;
