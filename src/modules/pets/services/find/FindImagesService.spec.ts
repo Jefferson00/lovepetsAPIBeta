@@ -1,9 +1,5 @@
-import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
 import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
-import AppError from "@shared/errors/AppError";
-import FakeImagesRepository from "../repositories/fakes/FakeImagesRepository";
-import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
-import CreatePetService from "./CreatePetService";
+import FakeImagesRepository from "../../repositories/fakes/FakeImagesRepository";
 import FindImagesService from "./FindImagesService";
 
 
@@ -40,10 +36,10 @@ describe('FindImages', () => {
         });
 
         const images = await findImages.execute('pet_id_1');
-       
+
         expect(images).toEqual([image1, image2, image3]);
     });
 
-    
+
 
 });

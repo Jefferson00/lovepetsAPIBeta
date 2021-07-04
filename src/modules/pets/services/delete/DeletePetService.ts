@@ -3,10 +3,10 @@ import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICa
 import IStorageProvider from "@shared/container/providers/StorageProvider/models/IStorageProvider";
 import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
-import IImagesRepository from "../repositories/IImagesRepository";
-import IPetsRepository from "../repositories/IPetsRepository";
+import IImagesRepository from "../../repositories/IImagesRepository";
+import IPetsRepository from "../../repositories/IPetsRepository";
 
-interface RequestDTO{
+interface RequestDTO {
     id: string;
     user_id: string;
 }
@@ -28,21 +28,21 @@ class DeletePetService {
 
         @inject('CacheProvider')
         private cacheProvider: ICacheProvider,
-    ){}
+    ) { }
 
     public async execute({
         user_id,
         id
-    }: RequestDTO): Promise<void>{
+    }: RequestDTO): Promise<void> {
         const user = await this.usersRepository.findById(user_id);
-        
+
         if (!user) {
             throw new AppError('User not found.');
         }
 
         const pet = await this.petsRepository.findById(id);
 
-        if (pet.user_id !== user_id){
+        if (pet.user_id !== user_id) {
             throw new AppError('User not found.');
         }
 

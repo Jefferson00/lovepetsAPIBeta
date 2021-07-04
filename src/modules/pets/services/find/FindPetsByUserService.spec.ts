@@ -1,9 +1,6 @@
-
-import FakeGeoProvider from '../providers/GeoProvider/fakes/FakeGeoProvider';
-import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
+import FakePetsRepository from "../../repositories/fakes/FakePetsRepository";
 import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
-import FindPetsByLocationService from "./FindPetsByLocationService";
-import CreatePetService from "./CreatePetService";
+import CreatePetService from "../create/CreatePetService";
 import FindPetsByUserService from './FindPetsByUserService';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 
@@ -44,12 +41,12 @@ describe('FindPetByUser', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,    
+            user_id: user.id,
             location_lat: '-15.785647',
             location_lon: '-48.141282',
             city: 'brasília',
             state: 'DF'
-         });
+        });
 
         const pet2 = await createPetsRepository.execute({
             name: 'Bixano',
@@ -58,12 +55,12 @@ describe('FindPetByUser', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,  
+            user_id: user.id,
             location_lat: '-15.805086',
             location_lon: '-48.121796',
             city: 'brasília',
             state: 'DF'
-         });
+        });
 
         const pets = await findPetsByUser.execute(user.id);
 

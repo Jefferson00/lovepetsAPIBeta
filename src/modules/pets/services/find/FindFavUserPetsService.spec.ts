@@ -1,5 +1,4 @@
-
-import FakeFavUserPetsRepository from '../repositories/fakes/FakeFavUserPetsRepository';
+import FakeFavUserPetsRepository from '../../repositories/fakes/FakeFavUserPetsRepository';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FindFavUserPetsService from './FindFavUserPetsService';
 

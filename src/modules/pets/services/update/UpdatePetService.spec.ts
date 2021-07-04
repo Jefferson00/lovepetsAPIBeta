@@ -1,7 +1,7 @@
 import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
 import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 import AppError from "@shared/errors/AppError";
-import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
+import FakePetsRepository from "../../repositories/fakes/FakePetsRepository";
 import UpdatePetService from "./UpdatePetService";
 
 

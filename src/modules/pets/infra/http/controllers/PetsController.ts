@@ -1,11 +1,11 @@
-import CreatePetService from "@modules/pets/services/CreatePetService";
-import FindPetsByLocationService from "@modules/pets/services/FindPetsByLocationService";
+import CreatePetService from "@modules/pets/services/create/CreatePetService";
+import FindPetsByLocationService from "@modules/pets/services/find/FindPetsByLocationService";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { classToClass } from 'class-transformer';
-import UpdatePetService from "@modules/pets/services/UpdatePetService";
-import DeletePetService from "@modules/pets/services/DeletePetService";
-import FindPetsByIdService from "@modules/pets/services/FindPetsByIdService";
+import UpdatePetService from "@modules/pets/services/update/UpdatePetService";
+import DeletePetService from "@modules/pets/services/delete/DeletePetService";
+import FindPetsByIdService from "@modules/pets/services/find/FindPetsByIdService";
 
 export default class PetsController {
     public async index(request: Request, response: Response): Promise<Response> {

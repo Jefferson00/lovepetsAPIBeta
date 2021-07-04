@@ -1,13 +1,14 @@
 import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    UpdateDateColumn,
-  } from 'typeorm';
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-import {Exclude, Expose} from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
+import uploadConfig from '@config/upload';
 
 @Entity('users')
 class User {
@@ -36,11 +37,16 @@ class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Expose({name: 'avatar_url'})
-  getAvatarUrl(): string | null{
-    return this.avatar ? 
-    this.avatar.startsWith('http') ? this.avatar : `${process.env.APP_API_URL}/files/${this.avatar}`
-    : null;
+  @Expose({ name: 'avatar_url' })
+  getAvatarUrl(): string | null {
+    switch (uploadConfig.driver) {
+      case 'disk':
+        return this.avatar ?
+          this.avatar.startsWith('http') ? this.avatar : `${process.env.APP_API_URL}/files/${this.avatar}`
+          : null;
+      default:
+        return null;
+    }
   }
 }
 

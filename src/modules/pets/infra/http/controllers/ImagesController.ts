@@ -1,13 +1,13 @@
-import CreateImageService from "@modules/pets/services/CreateImageService";
-import DeleteImageService from "@modules/pets/services/DeleteImageService";
-import FindImagesService from "@modules/pets/services/FindImagesService";
-import UpdateImageService from "@modules/pets/services/UpdateImageService";
+import CreateImageService from "@modules/pets/services/create/CreateImageService";
+import DeleteImageService from "@modules/pets/services/delete/DeleteImageService";
+import FindImagesService from "@modules/pets/services/find/FindImagesService";
+import UpdateImageService from "@modules/pets/services/update/UpdateImageService";
 import { classToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
 export default class ImagesController {
-    public async index(request: Request, response: Response): Promise<Response>{
+    public async index(request: Request, response: Response): Promise<Response> {
         const { pet_id } = request.params;
 
         const findImage = container.resolve(FindImagesService);
@@ -16,7 +16,7 @@ export default class ImagesController {
 
         return response.json(classToClass(images));
     }
-    public async create(request: Request, response: Response): Promise<Response>{
+    public async create(request: Request, response: Response): Promise<Response> {
         const {
             pet_id
         } = request.body;
@@ -30,8 +30,8 @@ export default class ImagesController {
 
         return response.json(classToClass(imagePet));
     }
-    public async update(request: Request, response: Response): Promise<Response>{
-        const {id} = request.params;
+    public async update(request: Request, response: Response): Promise<Response> {
+        const { id } = request.params;
         const { pet_id } = request.body;
 
         const updateImage = container.resolve(UpdateImageService);
@@ -41,16 +41,16 @@ export default class ImagesController {
             pet_id,
             image: request.file.filename,
         });
-        
+
         return response.json(classToClass(imagePet));
     }
-    public async delete(request: Request, response: Response): Promise<Response>{
-        const {id} = request.params;
+    public async delete(request: Request, response: Response): Promise<Response> {
+        const { id } = request.params;
         const { pet_id } = request.body;
 
         const deleteImage = container.resolve(DeleteImageService);
 
-        await deleteImage.execute({id, pet_id});
+        await deleteImage.execute({ id, pet_id });
 
         return response.send();
     }

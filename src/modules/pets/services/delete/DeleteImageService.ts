@@ -1,19 +1,16 @@
-
 import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
 import IStorageProvider from "@shared/container/providers/StorageProvider/models/IStorageProvider";
 import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
-import Image from "../infra/typeorm/entities/Image";
-import IImagesRepository from "../repositories/IImagesRepository";
+import IImagesRepository from "../../repositories/IImagesRepository";
 
-interface RequestDTO{
-    id:string;
-    image:string;
-    pet_id:string;
+interface RequestDTO {
+    id: string;
+    pet_id: string;
 }
 
 @injectable()
-class UpdateImageService {
+class DeleteImageService {
     constructor(
         @inject('ImagesRepository')
         private imagesRepository: IImagesRepository,
@@ -23,31 +20,21 @@ class UpdateImageService {
 
         @inject('CacheProvider')
         private cacheProvider: ICacheProvider,
-    ){}
+    ) { }
 
-    public async execute({
-        image, pet_id, id
-    }: RequestDTO): Promise<Image>{
+    public async execute({ id, pet_id }: RequestDTO): Promise<void> {
         const findImage = await this.imagesRepository.findById(id);
 
-        if(pet_id !== findImage.pet_id){
+        if (pet_id !== findImage.pet_id) {
             throw new AppError('Operation not authorized!');
         }
 
-        if(findImage.image){
-            await this.storageProvider.deleteFile(findImage.image);
-        }
+        await this.storageProvider.deleteFile(findImage.image);
 
-        const filename = await this.storageProvider.saveFile(image);
-
-        findImage.image = filename;
-
-        await this.imagesRepository.save(findImage);
+        await this.imagesRepository.delete(id);
 
         await this.cacheProvider.invalidate(`pet-images-list:${pet_id}`);
-
-        return findImage;
     }
 }
 
-export default UpdateImageService;
+export default DeleteImageService;

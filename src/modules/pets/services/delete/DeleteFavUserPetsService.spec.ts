@@ -1,6 +1,6 @@
 import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 import AppError from "@shared/errors/AppError";
-import FakeFavUserPetsRepository from "../repositories/fakes/FakeFavUserPetsRepository";
+import FakeFavUserPetsRepository from "../../repositories/fakes/FakeFavUserPetsRepository";
 import DeleteFavUserPetsService from "./DeleteFavUserPetsService";
 
 

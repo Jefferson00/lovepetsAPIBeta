@@ -1,9 +1,9 @@
 
-import FakeGeoProvider from '../providers/GeoProvider/fakes/FakeGeoProvider';
-import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
+import FakeGeoProvider from '../../providers/GeoProvider/fakes/FakeGeoProvider';
+import FakePetsRepository from "../../repositories/fakes/FakePetsRepository";
 import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
 import FindPetsByLocationService from "./FindPetsByLocationService";
-import CreatePetService from "./CreatePetService";
+import CreatePetService from "../create/CreatePetService";
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 
 
@@ -45,12 +45,12 @@ describe('FindLocation', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,    
+            user_id: user.id,
             location_lat: '-15.785647',
             location_lon: '-48.141282',
             city: 'brasília',
             state: 'DF'
-         });
+        });
 
         const pet2 = await fakePetsRepository.create({
             name: 'Bixano',
@@ -59,21 +59,21 @@ describe('FindLocation', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,  
+            user_id: user.id,
             location_lat: '-15.805086',
             location_lon: '-48.121796',
             city: 'brasília',
             state: 'DF'
-         });
+        });
 
         const pets = await findPetsByLocation.execute({
-           location_lat: '-15.805086',
-           location_lon: '-48.121796',
-           distance: '50',
-           gender: 'undefined',
-           limit: 5,
-           skip: 1,
-           species: 'undefined',
+            location_lat: '-15.805086',
+            location_lon: '-48.121796',
+            distance: '50',
+            gender: 'undefined',
+            limit: 5,
+            skip: 1,
+            species: 'undefined',
         });
 
         expect(pets).toEqual([pet, pet2]);
@@ -93,12 +93,12 @@ describe('FindLocation', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,    
+            user_id: user.id,
             location_lat: '-15.785647',
             location_lon: '-48.141282',
             city: 'brasília',
             state: 'DF'
-         });
+        });
 
         const pet2 = await fakePetsRepository.create({
             name: 'Bixano',
@@ -107,21 +107,21 @@ describe('FindLocation', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,  
+            user_id: user.id,
             location_lat: '-15.805086',
             location_lon: '-48.121796',
             city: 'brasília',
             state: 'DF'
-         });
+        });
 
         const pets = await findPetsByLocation.execute({
-           location_lat: '-15.805086',
-           location_lon: '-48.121796',
-           distance: null,
-           gender: 'undefined',
-           limit: 5,
-           skip: 1,
-           species: 'undefined',
+            location_lat: '-15.805086',
+            location_lon: '-48.121796',
+            distance: null,
+            gender: 'undefined',
+            limit: 5,
+            skip: 1,
+            species: 'undefined',
         });
 
         expect(pets).toEqual([pet, pet2]);
@@ -141,12 +141,12 @@ describe('FindLocation', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,    
+            user_id: user.id,
             location_lat: '-15.785647',
             location_lon: '-48.141282',
             city: 'brasília',
             state: 'DF'
-         });
+        });
 
         const pet2 = await fakePetsRepository.create({
             name: 'Bixano',
@@ -155,21 +155,21 @@ describe('FindLocation', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,  
+            user_id: user.id,
             location_lat: '-15.805086',
             location_lon: '-48.121796',
             city: 'brasília',
             state: 'DF'
-         });
+        });
 
         const pets = await findPetsByLocation.execute({
-           location_lat: '-15.805086',
-           location_lon: '-48.121796',
-           distance: null,
-           gender: 'male',
-           limit: 5,
-           skip: 1,
-           species: 'dog',
+            location_lat: '-15.805086',
+            location_lon: '-48.121796',
+            distance: null,
+            gender: 'male',
+            limit: 5,
+            skip: 1,
+            species: 'dog',
         });
 
         expect(pets).toEqual([pet2]);

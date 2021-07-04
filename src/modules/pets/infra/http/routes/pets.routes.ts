@@ -33,7 +33,7 @@ petsRouter.post('/',
 
 
 petsRouter.get('/', petsController.index);
-petsRouter.get('/:id', petsController.find);
+petsRouter.get('/find/:id', petsController.find);
 petsRouter.get('/me', ensureAuthenticated, petsUserController.index);
 petsRouter.put('/:id',
     celebrate({

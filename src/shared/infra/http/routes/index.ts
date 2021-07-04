@@ -7,6 +7,7 @@ import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import petsRouter from '@modules/pets/infra/http/routes/pets.routes';
 import imagesRouter from '@modules/pets/infra/http/routes/images.routes';
 import favsRouter from '@modules/pets/infra/http/routes/favsUserPets.routes';
+import reportRouter from '@modules/pets/infra/http/routes/report.routes';
 
 const routes = Router();
 
@@ -17,5 +18,6 @@ routes.use('/profile', profileRouter);
 routes.use('/pets', petsRouter);
 routes.use('/images', imagesRouter);
 routes.use('/favs', favsRouter);
+routes.use('/report', reportRouter);
 
 export default routes;

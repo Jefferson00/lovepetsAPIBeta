@@ -1,7 +1,7 @@
 import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
 import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 import AppError from "@shared/errors/AppError";
-import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
+import FakePetsRepository from "../../repositories/fakes/FakePetsRepository";
 import CreatePetService from "./CreatePetService";
 
 
@@ -17,7 +17,7 @@ describe('CreatePet', () => {
         fakeCacheProvider = new FakeCacheProvider();
 
         createPet = new CreatePetService(
-            fakePetsRepository,fakeUsersRepository, fakeCacheProvider
+            fakePetsRepository, fakeUsersRepository, fakeCacheProvider
         );
     });
 

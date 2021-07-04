@@ -1,7 +1,7 @@
 
 import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 import FakeStorageProvider from "@shared/container/providers/StorageProvider/fakes/FakeStorageProvider";
-import FakeImagesRepository from "../repositories/fakes/FakeImagesRepository";
+import FakeImagesRepository from "../../repositories/fakes/FakeImagesRepository";
 import CreateImageService from "./CreateImageService";
 
 

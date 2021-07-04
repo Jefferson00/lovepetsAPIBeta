@@ -1,7 +1,7 @@
 import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
 import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
-import IFavUserPetsRepository from "../repositories/IFavUserPetsRepository";
+import IFavUserPetsRepository from "../../repositories/IFavUserPetsRepository";
 
 @injectable()
 class DeleteFavUserPetsService {
@@ -11,12 +11,12 @@ class DeleteFavUserPetsService {
 
         @inject('CacheProvider')
         private cacheProvider: ICacheProvider,
-    ){}
+    ) { }
 
-    public async execute(id:string): Promise<void>{
+    public async execute(id: string): Promise<void> {
         const favExist = await this.favUserPetsRepository.findById(id);
 
-        if(!favExist){
+        if (!favExist) {
             throw new AppError('Fav not found');
         }
 

@@ -1,16 +1,18 @@
 import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    UpdateDateColumn,
-    ManyToOne,
-    JoinColumn,
-  } from 'typeorm';
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+
+import uploadConfig from '@config/upload';
 
 import Pet from './Pet';
 
-import {Exclude, Expose} from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
 @Entity('images')
 class Image {
@@ -21,7 +23,7 @@ class Image {
   pet_id: string;
 
   @ManyToOne(() => Pet)
-  @JoinColumn({name: 'pet_id'})
+  @JoinColumn({ name: 'pet_id' })
   pet: Pet;
 
   @Column()
@@ -33,11 +35,16 @@ class Image {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Expose({name: 'image_url'})
-  getAvatarUrl(): string | null{
-    return this.image ? 
-    this.image.startsWith('http') ? this.image : `${process.env.APP_API_URL}/files/${this.image}`
-    : null;
+  @Expose({ name: 'image_url' })
+  getAvatarUrl(): string | null {
+    switch (uploadConfig.driver) {
+      case 'disk':
+        return this.image ?
+          this.image.startsWith('http') ? this.image : `${process.env.APP_API_URL}/files/${this.image}`
+          : null;
+      default:
+        return null;
+    }
   }
 }
 

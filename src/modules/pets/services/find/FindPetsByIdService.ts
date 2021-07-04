@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import Pet from "../infra/typeorm/entities/Pet";
-import IPetsRepository from "../repositories/IPetsRepository";
+import Pet from "../../infra/typeorm/entities/Pet";
+import IPetsRepository from "../../repositories/IPetsRepository";
 
 @injectable()
 class FindPetsByIdService {

@@ -2,21 +2,21 @@ import IUsersRepository from "@modules/users/repositories/IUsersRepository";
 import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
 import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
-import Pet from "../infra/typeorm/entities/Pet";
-import IPetsRepository from "../repositories/IPetsRepository";
+import Pet from "../../infra/typeorm/entities/Pet";
+import IPetsRepository from "../../repositories/IPetsRepository";
 
-interface RequestDTO{
+interface RequestDTO {
     name: string;
     user_id: string;
-    species:string;
+    species: string;
     is_adopt: boolean;
-    age:string;
-    gender:string;
-    description:string;
-    location_lat:string;
-    location_lon:string;
-    city:string;
-    state:string;
+    age: string;
+    gender: string;
+    description: string;
+    location_lat: string;
+    location_lon: string;
+    city: string;
+    state: string;
 }
 
 @injectable()
@@ -30,37 +30,37 @@ class CreatePetService {
 
         @inject('CacheProvider')
         private cacheProvider: ICacheProvider,
-    ){}
+    ) { }
 
     public async execute({
         user_id,
-        name, 
-        species, 
-        age, 
+        name,
+        species,
+        age,
         is_adopt,
-        gender, 
-        description, 
+        gender,
+        description,
         location_lat,
         location_lon,
         city,
         state,
-    }: RequestDTO): Promise<Pet>{
+    }: RequestDTO): Promise<Pet> {
         const user = await this.usersRepository.findById(user_id);
 
         if (!user) {
-        throw new AppError('User not found.');
+            throw new AppError('User not found.');
         }
 
         if (is_adopt) {
             throw new AppError('The pet must be available for adoption.');
         }
-        
-        if (!name || name === ''){
-                name = 'pet'
-            if (species === 'cat'){
+
+        if (!name || name === '') {
+            name = 'pet'
+            if (species === 'cat') {
                 name = 'bixano'
             }
-            if (species === 'dog'){
+            if (species === 'dog') {
                 name = 'doguinho'
             }
         }
@@ -68,12 +68,12 @@ class CreatePetService {
 
         const pet = await this.petsRepository.create({
             user_id,
-            name, 
-            species, 
-            age, 
+            name,
+            species,
+            age,
             is_adopt,
-            gender, 
-            description, 
+            gender,
+            description,
             location_lat,
             location_lon,
             city,

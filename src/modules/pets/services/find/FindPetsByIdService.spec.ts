@@ -1,5 +1,5 @@
 
-import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
+import FakePetsRepository from "../../repositories/fakes/FakePetsRepository";
 import FindPetsByIdService from './FindPetsByIdService';
 
 

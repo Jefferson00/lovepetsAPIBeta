@@ -1,39 +1,33 @@
 import FakeUsersRepository from "@modules/users/repositories/fakes/FakeUsersRepository";
 import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
-import FakeStorageProvider from "@shared/container/providers/StorageProvider/fakes/FakeStorageProvider";
 import AppError from "@shared/errors/AppError";
-import FakeImagesRepository from "../repositories/fakes/FakeImagesRepository";
-import FakePetsRepository from "../repositories/fakes/FakePetsRepository";
-import CreatePetService from "./CreatePetService";
-import DeletePetService from "./DeletePetService";
+import FakeFavUserPetsRepository from "../../repositories/fakes/FakeFavUserPetsRepository";
+import FakePetsRepository from "../../repositories/fakes/FakePetsRepository";
+import CreateFavUserPetsService from "./CreateFavUserPetsService";
 
 
 let fakePetsRepository: FakePetsRepository;
 let fakeUsersRepository: FakeUsersRepository;
-let fakeImagesRepository: FakeImagesRepository;
-let fakeStorageProvider: FakeStorageProvider;
+let fakeFavUserPetsRepository: FakeFavUserPetsRepository;
 let fakeCacheProvider: FakeCacheProvider;
-let deletePet: DeletePetService;
+let createFavUserPet: CreateFavUserPetsService;
 
-describe('DeletePet', () => {
+describe('CreateFavUserPets', () => {
     beforeEach(() => {
         fakePetsRepository = new FakePetsRepository();
         fakeUsersRepository = new FakeUsersRepository();
-        fakeImagesRepository = new FakeImagesRepository();
-        fakeStorageProvider = new FakeStorageProvider();
+        fakeCacheProvider = new FakeCacheProvider();
+        fakeFavUserPetsRepository = new FakeFavUserPetsRepository();
 
-        deletePet = new DeletePetService(
+        createFavUserPet = new CreateFavUserPetsService(
+            fakeFavUserPetsRepository,
             fakePetsRepository,
             fakeUsersRepository,
-            fakeImagesRepository,
-            fakeStorageProvider,
             fakeCacheProvider,
         );
     });
 
-    it('should be able to delete a pet', async () => {
-
-
+    it('should be able to create a new fav', async () => {
         const user = await fakeUsersRepository.create({
             name: 'Jeffin',
             email: 'jeffin@jeffin.com',
@@ -55,39 +49,17 @@ describe('DeletePet', () => {
             state: ''
         });
 
-        const pet2 = await fakePetsRepository.create({
-            name: 'Bixano',
-            species: 'cat',
-            age: '1 ano',
-            description: 'description',
-            gender: 'male',
-            is_adopt: false,
-            user_id: user.id,
-            location_lat: 'location-id',
-            location_lon: '',
-            city: '',
-            state: ''
-        });
+        const fav = await createFavUserPet.execute(
+            user.id,
+            pet.id,
+        )
 
-        await deletePet.execute({
-            id: pet2.id,
-            user_id: user.id
-        })
-
-        const pets = await fakePetsRepository.findByUser(user.id);
-
-        expect(pets).toEqual([pet]);
-
+        expect(fav).toHaveProperty('id');
+        expect(fav.user_id).toBe(user.id);
+        expect(fav.pet_id).toBe(pet.id);
     });
 
-    it('should NOT be able to delete an Pet with non-existing user', async () => {
-        const user = await fakeUsersRepository.create({
-            name: 'Jeffin',
-            email: 'jeffin@jeffin.com',
-            password: '123456',
-            phone: '61 0000000',
-        });
-
+    it('should Not be able to create a new fav without a valid user_id', async () => {
         const pet = await fakePetsRepository.create({
             name: 'Bixano',
             species: 'cat',
@@ -95,33 +67,41 @@ describe('DeletePet', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,
+            user_id: 'user_id',
             location_lat: 'location-id',
             location_lon: '',
             city: '',
             state: ''
         });
         await expect(
-            deletePet.execute({
-                id: pet.id,
-                user_id: 'non-existing-user'
-            })).rejects.toBeInstanceOf(AppError);
+            createFavUserPet.execute(
+                'user.id',
+                pet.id,
+            )
+        ).rejects.toBeInstanceOf(AppError);
     });
-
-    it('should NOT be able to delete an Pet with non-valid user', async () => {
+    it('should Not be able to create a new fav without a valid pet_id', async () => {
         const user = await fakeUsersRepository.create({
             name: 'Jeffin',
             email: 'jeffin@jeffin.com',
             password: '123456',
             phone: '61 0000000',
         });
-        const user2 = await fakeUsersRepository.create({
-            name: 'Jeffin2',
-            email: 'jeffin2@jeffin.com',
-            password: '123456',
-            phone: '61 00000002',
-        });
+        await expect(
+            createFavUserPet.execute(
+                user.id,
+                'pet.id',
+            )
+        ).rejects.toBeInstanceOf(AppError);
+    });
 
+    it('should Not be able to create a new fav already exists', async () => {
+        const user = await fakeUsersRepository.create({
+            name: 'Jeffin',
+            email: 'jeffin@jeffin.com',
+            password: '123456',
+            phone: '61 0000000',
+        });
         const pet = await fakePetsRepository.create({
             name: 'Bixano',
             species: 'cat',
@@ -129,16 +109,21 @@ describe('DeletePet', () => {
             description: 'description',
             gender: 'male',
             is_adopt: false,
-            user_id: user.id,
+            user_id: 'user_id',
             location_lat: 'location-id',
             location_lon: '',
             city: '',
             state: ''
         });
+        await createFavUserPet.execute(
+            user.id,
+            pet.id,
+        );
         await expect(
-            deletePet.execute({
-                id: pet.id,
-                user_id: user2.id
-            })).rejects.toBeInstanceOf(AppError);
+            createFavUserPet.execute(
+                user.id,
+                pet.id,
+            )
+        ).rejects.toBeInstanceOf(AppError);
     });
 });
