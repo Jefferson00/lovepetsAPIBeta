@@ -37,11 +37,14 @@ class Image {
 
   @Expose({ name: 'image_url' })
   getAvatarUrl(): string | null {
+    if (!this.image) {
+      return null;
+    }
     switch (uploadConfig.driver) {
       case 'disk':
-        return this.image ?
-          this.image.startsWith('http') ? this.image : `${process.env.APP_API_URL}/files/${this.image}`
-          : null;
+        return this.image.startsWith('http') ? this.image : `${process.env.APP_API_URL}/files/${this.image}`
+      case 's3':
+        return `https://${uploadConfig.config.aws.bucket}.s3.amazonaws.com/${this.image}`;
       default:
         return null;
     }

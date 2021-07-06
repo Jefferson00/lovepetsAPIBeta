@@ -14,7 +14,7 @@ export default {
 
   defaults: {
     from: {
-      email: 'jeffersonts00@gmail.com',
+      email: 'support@jeffersondev.com.br',
       name: 'Jefferson Silva',
     },
   },

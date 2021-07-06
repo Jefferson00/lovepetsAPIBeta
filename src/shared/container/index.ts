@@ -1,7 +1,10 @@
-import { container} from 'tsyringe';
+import { container } from 'tsyringe';
 
 import '@modules/users/providers'
 import '@modules/pets/providers'
+
+import mailConfig from '@config/mail';
+import uploadConfig from '@config/upload';
 
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
@@ -11,12 +14,14 @@ import UserTokensRepository from '@modules/users/infra/typeorm/repositories/User
 
 import IMailProvaider from './providers/MailProvider/models/IMailProvider';
 import EtherealMailProvider from './providers/MailProvider/implementations/EtherealMailProvider';
+import SESMailProvider from './providers/MailProvider/implementations/SESMailProvider';
 
 import IMailTemplateProvaider from './providers/MailTemplateProvider/models/IMailTemplateProvider';
 import HandlebarsMailTemplateProvider from './providers/MailTemplateProvider/implementations/HandlebarsMailTemplateProvider';
 
 import IStorageProvider from './providers/StorageProvider/models/IStorageProvider';
 import DiskStorageProvider from './providers/StorageProvider/implementations/DiskStorageProvider';
+import S3StorageProvider from './providers/StorageProvider/implementations/S3StorageProvider';
 
 import IPetsRepository from '@modules/pets/repositories/IPetsRepository';
 import PetsRepository from '@modules/pets/infra/typeorm/repositories/PetsRepository';
@@ -50,7 +55,10 @@ container.registerSingleton<IImagesRepository>(
 
 container.registerSingleton<IStorageProvider>(
     'StorageProvider',
-    DiskStorageProvider,
+    uploadConfig.driver === 'disk' ?
+        DiskStorageProvider :
+        S3StorageProvider
+    ,
 );
 
 container.registerSingleton<IUserTokensRepository>(
@@ -62,10 +70,12 @@ container.registerSingleton<IMailTemplateProvaider>(
     'MailTemplateProvider',
     HandlebarsMailTemplateProvider,
 );
-    
+
 container.registerInstance<IMailProvaider>(
     'MailProvider',
-    container.resolve(EtherealMailProvider),
+    mailConfig.driver === 'ethereal' ?
+        container.resolve(EtherealMailProvider) :
+        container.resolve(SESMailProvider),
 );
 
 container.registerSingleton<ICacheProvider>(
