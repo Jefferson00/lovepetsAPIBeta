@@ -28,8 +28,10 @@ import PetsRepository from '@modules/pets/infra/typeorm/repositories/PetsReposit
 
 import IImagesRepository from '@modules/pets/repositories/IImagesRepository';
 import ImagesRepository from '@modules/pets/infra/typeorm/repositories/ImagesRepository';
+
 import IFavUserPetsRepository from '@modules/pets/repositories/IFavUserPetsRepository';
 import FavUserPetsRepository from '@modules/pets/infra/typeorm/repositories/FavUserPetsRepository';
+
 import ICacheProvider from './providers/CacheProvider/models/ICacheProvider';
 import RedisCacheProvider from './providers/CacheProvider/implementations/RedisCacheProvider';
 

@@ -12,7 +12,7 @@ import uploadConfig from '@config/upload';
 
 import Pet from './Pet';
 
-import { Exclude, Expose } from 'class-transformer';
+import { Expose } from 'class-transformer';
 
 @Entity('images')
 class Image {

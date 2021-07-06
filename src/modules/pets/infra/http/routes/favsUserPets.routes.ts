@@ -11,7 +11,11 @@ const favsController = new FavUserPetsController();
 
 favsRoutes.use(ensureAuthenticated);
 
-favsRoutes.post('/', favsController.create);
+favsRoutes.post('/', celebrate({
+  [Segments.BODY]: {
+    pets_id: Joi.string().uuid().required(),
+  },
+}), favsController.create);
 favsRoutes.get('/', favsController.index);
 favsRoutes.delete('/:id', favsController.delete);
 

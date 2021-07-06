@@ -1,15 +1,15 @@
 import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    UpdateDateColumn,
-    ManyToOne,
-    JoinColumn,
-  } from 'typeorm';
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 
-  
-import {Exclude, Expose} from 'class-transformer';
+
+import { Exclude } from 'class-transformer';
 import User from '@modules/users/infra/typeorm/entities/User';
 import Pet from '@modules/pets/infra/typeorm/entities/Pet';
 
@@ -22,7 +22,7 @@ class FavUserPets {
   user_id: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({name: 'user_id'})
+  @JoinColumn({ name: 'user_id' })
   @Exclude()
   user: User;
 
@@ -30,9 +30,9 @@ class FavUserPets {
   pet_id: string;
 
   @ManyToOne(() => Pet)
-  @JoinColumn({name: 'pet_id'})
+  @JoinColumn({ name: 'pet_id' })
   pet: Pet;
- 
+
   @CreateDateColumn()
   created_at: Date;
 
