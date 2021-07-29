@@ -54,6 +54,26 @@ $ yarn install
 # and set with YOUR environment variables.
 # The aws variables do not need to be filled for dev environment
 
+
+# Create the ormconfig.json file
+$ {
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5434,
+  "username": "postgres",
+  "password": "docker",
+  "database": "love_pets_beta",
+  "entities": [
+    "./src/modules/**/entities/*.ts"
+  ],
+  "migrations": [
+    "./src/shared/infra/database/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/shared/infra/database/migrations/"
+  }
+}
+
 # Create the instance of postgreSQL using docker
 
 $ docker run --name lovepets-postgres -e POSTGRES_USER=docker \
