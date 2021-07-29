@@ -1,90 +1,80 @@
-# Recuperação de senha
+# Love Pets: amor aos animais
+<h2 align="center">
+ <img alt="Lovepets" title="Lovepets" src=".github/logo.svg" />
+ Aplicação para conectar pessoas que desejam doar e ou adotar pets 
+</h2>
 
-**RF**
+<p align="center">
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0-brightgreen">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Jefferson00/lovepetswebbeta">
+  <a href="https://www.linkedin.com/in/jefferson-c-silva-aa1b7b1a9/">
+    <img alt="Made by Jefferson" src="https://img.shields.io/badge/made%20by-Jefferson-blue">
+  </a>
+</p>
 
-- O usuário deve poder recuperar sua senha informando o seu e-mail;
-- O usuário deve receber um e-mail com instruções de recuperação de senha;
-- O usuário deve poder resetar sua senha;
+<p align="center">
+  <img src=".github/preview.png">
+</p>
 
-**RNF**
+## 💻 Projeto
 
-- Utilizar Mailtrap para testar envios em ambiente de dev;
-- Utilizar Amazon SES para envios em produção;
-- O envio de e-mails deve acontecer em segundo plano (background job);
+Love pets: amor aos animais, é um projeto que tem como ideia conectar pessoas que desejam adotar ou doar pets baseado na localidade do usuário. Esse é o backend da aplicação.
 
+## 🚀 Tecnologias
 
-**RN**
-
-- O link enviado por email para resetar a senha deve expirar em 2h;
-- O usuário precisa confirmar a nova senha ao resetá-la;
-
-# Atualização de perfil
-
-**RF**
-
-- O usuário deve poder atualizar suas informações (e-mail, nome, senha, phone);
-
-**RNF**
-
-**RN**
-
-- O usuário não pode alterar seu email para um email já utilizado;
-- Para atualizar a senha, o usuário deve informar a senha atual;
-- Para atualizar a senha, o usuário precisa confirmar a nova senha;
-
-# Listagem de anúncios
-
-**RF**
-
-- _O usuário deve poder ver os anúncios publicados num raio de até 100km da sua localidade atual_;
-- _O usuario poderá alterar o raio de alcance dos anúncios_;
-- _O usuário poderá filtrar os resultados pela espécie do pet_;
-- _O usuário poderá filtrar os resultados pelo genêro do pet_; 
-- _O usuário poderá ver o avatar, o nome, o contato e a cidade do usuário responsavel pelo anúnico_;
-- _Listar Imagens do pet especifico_;
-- O usuário poderá denunciar o anúncio;
-- O usuário poderá salvar o anúncio como favorito;
-
-**RNF**
-
-**RN**
-- Apenas anúncios válidos serão listados;
-- O anúncio terá um prazo de validade de 60 dias;
-- Para denunciar o usuário deverá estar logado; (?)
-- Para salvar como favorito o usúario deverá estar logado;
+- [Node.js](https://nodejs.org/en/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Express](https://expressjs.com/pt-br/)
+- [TypeORM](https://typeorm.io/)
+- [Docker](https://www.docker.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Redis](https://redis.io/)
+- [JSONWebToken](https://github.com/auth0/node-jsonwebtoken#readme)
 
 
-# Cadastro de anúncios
+## ℹ️ How To Use
 
-**RF**
-- _O usuário logado deve poder cadastrar um novo anúncio_;
+Importante ter instalado:
 
-**RNF**
+- [Node.js](https://nodejs.org/en/)
+- [Yarn](https://classic.yarnpkg.com/) ou [NPM](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/)
 
-**RN**
-- _O usuário poderá definir um nome ou caso o pet não possua um nome ele poderá deixar em branco_;
-- O anúncio poderá ter até 4 imagens;
+```bash
+# Clone this repository
+$ git clone https://github.com/Jefferson00/lovepetsAPIBeta
 
-# Atualizar os anúncios
+# Go into the repository
+$ cd lovepetsAPIBeta
 
-**RF**
-- _O usuário deve poder atualizar as informações do anúncio criado por ele_;
-- _O usuário deve poder atualizar as images do anúncio_;
-- _O usuário deve poder excluir uma ou mais imagens caso tenha mais de uma referenciada com o anúncio_;
+# Install dependencies
+$ yarn install
 
-**RNF**
+# Make a copy of '.env.example' to '.env'
+# and set with YOUR environment variables.
+# The aws variables do not need to be filled for dev environment
 
-**RN**
-- _O usuário poderá atualizar um anúncio publicado por ele e estando logado_;
+# Create the instance of postgreSQL using docker
 
-# Excluir os anúncios
+$ docker run --name lovepets-postgres -e POSTGRES_USER=docker \
+              -e POSTGRES_DB=love_pets_beta -e POSTGRES_PASSWORD=docker \
+              -p 5434:5432 -d postgres
 
+# Create the instance of redis using docker
+$ docker run --name lovepets-redis -p 6379:6379 -d -t redis:alpine
 
-**RF**
-- _O usuário deve poder excluir o anúncio criado por ele_;
+# Once the services are running, run the migrations
+$ yarn typeorm migration:run
 
-**RNF**
+# To finish,run
+$ yarn dev
 
-**RN**
-- _O usuário poderá excluir um anúncio publicado por ele e estando logado_;
-- _As imagens referentes ao anúncio deverão ser excluidas também_;
+```
+
+## 📝 License
+
+<a href="/LICENSE">
+    <img alt="Made by Jefferson" src="https://img.shields.io/badge/licence-MIT-blue">
+ </a>
+
+Made with ♥ by Jefferson C Silva :wave: [Get in touch!](https://www.linkedin.com/in/jefferson-c-silva)
