@@ -1,5 +1,5 @@
 <h3 align="center">
-  <img alt="Lovepets" title="Lovepets" src=".github/logo.svg" />
+  <img alt="Lovepets" title="Lovepets" src=".github/logo.svg" width="200px"/>
 </h3>
 
 <h2 align="center">
@@ -48,6 +48,8 @@ Importante ter instalado:
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://classic.yarnpkg.com/) ou [NPM](https://www.npmjs.com/)
 - [Docker](https://www.docker.com/)
+
+Import the `Insomnia.json` on Insomnia App or click on [Run in Insomnia](#insomniaButton) button
 
 ```bash
 # Clone this repository
