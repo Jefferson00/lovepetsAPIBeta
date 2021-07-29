@@ -11,6 +11,9 @@
     <img alt="Made by Jefferson" src="https://img.shields.io/badge/made%20by-Jefferson-blue">
   </a>
 </p>
+<p align="center">
+  [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Lovepets&uri=https%3A%2F%2Fgithub.com%2FJefferson00%2FlovepetsAPIBeta%2Fblob%2Fmaster%2FInsomnia.json)
+</p>
 
 <p align="center">
   <img src=".github/preview.png">
