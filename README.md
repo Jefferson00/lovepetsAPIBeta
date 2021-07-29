@@ -12,7 +12,7 @@
   </a>
 </p>
 <p align="center">
-  [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Lovepets&uri=https%3A%2F%2Fgithub.com%2FJefferson00%2FlovepetsAPIBeta%2Fblob%2Fmaster%2FInsomnia.json)
+  <a href="https://insomnia.rest/run/?label=Lovepets&uri=https%3A%2F%2Fgithub.com%2FJefferson00%2FlovepetsAPIBeta%2Fblob%2Fmaster%2FInsomnia.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
 </p>
 
 <p align="center">
