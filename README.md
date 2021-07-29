@@ -1,5 +1,5 @@
 <h3 align="center">
-  <img alt="Lovepets" title="Lovepets" src=".github/logo.svg" width="200px"/>
+  <img alt="Lovepets" title="Lovepets" src=".github/logo.svg" height="150px"/>
 </h3>
 
 <h2 align="center">
@@ -17,7 +17,7 @@
     <img alt="Made by Jefferson" src="https://img.shields.io/badge/made%20by-Jefferson-blue">
   </a>
 </p>
-<p align="center">
+<p align="center" id="insomniaButton">
   <a href="https://insomnia.rest/run/?label=Lovepets&uri=https%3A%2F%2Fgithub.com%2FJefferson00%2FlovepetsAPIBeta%2Fblob%2Fmaster%2FInsomnia.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
 </p>
 
